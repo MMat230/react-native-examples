@@ -4,7 +4,84 @@ import { ActivityIndicator, Alert,  Button, FlatList,
     TouchableHighlight, TouchableOpacity, TouchableNativeFeedback, 
     TouchableWithoutFeedback, View  } from 'react-native';
 
-export default class Movies extends React.Component {
+import {StackNavigator} from 'react-navigation';
+
+
+class HomeScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Welcome',
+  };
+  render() {
+    const { navigate } = this.props.navigation;
+    return (
+      <View style={styles.customContainer}>
+        <Button
+          title="Go to Jane's profile"
+          color="#aaaaaa"
+          onPress={() =>
+            navigate('Profile', { name: 'Jane' })
+          }
+        />
+      </View>
+    );
+  }
+}
+
+class ProfileScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Profile Screen',
+  };
+  render() {
+    const { navigate } = this.props.navigation;
+    return (
+      <View style={styles.customContainer}>
+        <Button
+          title="Go to Joe's profile"
+          color="#aaaaaa"
+          onPress={() =>
+            navigate('LastScreen', { name: 'Jane' })
+          }
+        />
+      </View>
+      // <Button
+      //   title="Go to next screen"
+      //   onPress={() =>
+      //     navigate('LastScreen', { name: 'Test' })
+      //   }
+      // />
+    );
+  }
+}
+
+class LastScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Last Screen',
+  };
+  render() {
+    const { navigate } = this.props.navigation;
+    return (
+      <View style={styles.customContainer}>
+        <Button 
+          color='#aaaaaa'
+          title="Go back to home"
+          onPress={() =>
+            navigate('Home')
+          }
+        />
+      </View>
+    );
+  }
+}
+
+const App = StackNavigator({
+  Home: {screen: HomeScreen},
+  Profile: { screen: ProfileScreen},
+  LastScreen: { screen: LastScreen}
+});
+
+export default App;
+
+export class Movies extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -338,6 +415,11 @@ const styles = StyleSheet.create({
     color: 'blue',
     fontWeight: 'bold',
     fontSize: 30
+  },
+  customContainer: {
+    flex: 1,
+    paddingTop: 30,
+    backgroundColor: 'steelblue'
   },
   container: {
     paddingTop: 60
