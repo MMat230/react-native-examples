@@ -6,6 +6,76 @@ import { ActivityIndicator, Alert,  Button, FlatList,
 
 import {StackNavigator} from 'react-navigation';
 
+export default class LoginScreen extends React.Component {
+
+  constructor(props) {
+      super(props);
+      this.state = {
+        cpfText: "",
+        passwordText: "",
+        placeholderCpfText: "CPF OU PASSAPORTE",
+        placeholderPasswordText: "SENHA",
+      }
+    }
+
+  _onPressButtonForgotPassword() {
+    Alert.alert('Esqueci!')
+  }
+  
+  _onPressButton() {
+    Alert.alert('Entrou!')
+  }
+
+  render() {
+    return (
+      <View style={styles.login}> 
+          <Text style={{ paddingBottom: 5, paddingLeft: 19, fontSize: 12, color: '#f47920'}}> 
+            {this.state.cpfText.length > 0 ? this.state.placeholderCpfText : ""}
+          </Text>
+          <TextInput
+          style={{ paddingBottom: 10, paddingLeft: 20, color: "#fff", fontSize: 16}}
+          placeholder={this.state.placeholderCpfText}
+          placeholderTextColor="#ccc"
+          maxLength={11}
+          underlineColorAndroid='transparent'
+          onChangeText={(text) => this.setState({
+            cpfText: text
+          })}
+          />
+          <View style={{backgroundColor: '#7d7d7d', marginLeft:20, marginRight:20, marginBottom:20, height: 2}}></View>
+
+          <Text style={{ paddingBottom: 5, paddingLeft: 19, fontSize: 12, color: '#f47920'}}> 
+             {this.state.passwordText.length > 0 ? this.state.placeholderPasswordText : ""}
+          </Text>
+          <TextInput
+          style={{ paddingBottom: 10, paddingLeft: 20, color: "#fff", fontSize: 16}}
+          placeholder={this.state.placeholderPasswordText}
+          placeholderTextColor="#ccc"
+          secureTextEntry={true}
+          maxLength={6}
+          keyboardType="numeric"
+          underlineColorAndroid='transparent'
+          onChangeText={ (text) => this.setState({
+            passwordText: text
+          })}
+          />
+
+          <View style={{backgroundColor: '#7d7d7d', marginBottom: 10, marginLeft:20, marginRight:20, height: 2}}></View>
+          <TouchableOpacity onPress={this._onPressButtonForgotPassword} underlayColor="white">
+            <Text style={{marginLeft: 20, marginTop: 5, fontSize: 12, color: '#fff'}}> ESQUECI MINHA SENHA </Text>
+          </TouchableOpacity>
+          
+          <View style={{alignItems: 'center', marginTop: 20}}>
+            <TouchableOpacity onPress={this._onPressButton} underlayColor="white">
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>Entrar</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+      </View>
+    );
+  }
+}
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -79,7 +149,7 @@ const App = StackNavigator({
   LastScreen: { screen: LastScreen}
 });
 
-export default App;
+//export default App;
 
 export class Movies extends React.Component {
   constructor(props) {
@@ -429,7 +499,7 @@ const styles = StyleSheet.create({
     width: 260,
     alignItems: 'center',
     backgroundColor: '#f26522',
-    borderRadius: 10
+    borderRadius: 45,
   },
   buttonText: {
     padding: 20,
@@ -450,4 +520,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     backgroundColor: 'rgba(247,247,247,1.0)',
   },
+  login: {
+    flex: 1,
+    backgroundColor: '#333',
+    justifyContent: 'center',
+  }
 });
